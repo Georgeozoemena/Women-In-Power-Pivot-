@@ -1,0 +1,23 @@
+.about {
+  padding: 120px 0;
+}
+
+.about__content {
+  max-width: 720px;
+}
+
+.about h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.about .lead {
+  margin-top: 24px;
+  font-size: 20px;
+  color: var(--pivot-muted);
+}
+
+.about p {
+  margin-top: 20px;
+  font-size: 16px;
+}

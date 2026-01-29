@@ -1,0 +1,41 @@
+.contact {
+  padding: 120px 0;
+}
+
+.contact__wrapper {
+  max-width: 960px;
+}
+
+.contact h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.contact__intro {
+  margin-top: 16px;
+  max-width: 560px;
+}
+
+.contact__grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.contact__info p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.contact__form input,
+.contact__form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--pivot-border);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}

@@ -1,22 +1,38 @@
+import { motion } from "framer-motion";
+import { Globe, Users, Calendar } from "lucide-react";
 import Container from "../ui/Container";
+import "../../styles/stats.css";
 
 const stats = [
-  { label: "States Reached", value: "25+" },
-  { label: "Annual Conferences", value: "10+" },
-  { label: "Participants", value: "5,000+" },
+  { icon: Globe, value: "25+", label: "States Reached" },
+  { icon: Calendar, value: "10+", label: "Annual Conferences" },
+  { icon: Users, value: "85%", label: "Career Advancement Rate" },
+  { icon: Users, value: "200+", label: "Partner Organizations" },
 ];
 
 export default function Stats() {
   return (
-    <section className="py-16">
+    <section className="stats">
       <Container>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-          {stats.map((item) => (
-            <div key={item.label}>
-              <h3 className="text-4xl font-bold">{item.value}</h3>
-              <p className="mt-2 text-gray-600">{item.label}</p>
-            </div>
-          ))}
+        <div className="stats__grid">
+          {stats.map((item, index) => {
+            const Icon = item.icon;
+
+            return (
+              <motion.div
+                key={item.label}
+                className="stats__item"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+              >
+                {/* <Icon size={32} strokeWidth={1.5} /> */}
+                <h3>{item.value}</h3>
+                <p>{item.label}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </Container>
     </section>

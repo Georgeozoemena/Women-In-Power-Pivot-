@@ -1,0 +1,30 @@
+.impact {
+  padding: 120px 0;
+}
+
+.impact h1 {
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 64px;
+}
+
+.impact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.impact__card {
+  border: 1px solid var(--pivot-border);
+  border-radius: 12px;
+  padding: 40px 32px;
+}
+
+.impact__card h3 {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.impact__card p {
+  margin-top: 12px;
+}
