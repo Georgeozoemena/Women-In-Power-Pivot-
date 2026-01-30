@@ -1,41 +1,270 @@
+/* CONTACT PAGE - NIXTIO INSPIRED DESIGN */
 .contact {
-  padding: 120px 0;
+  position: relative;
+  background: white;
+  overflow: hidden;
+
+  button {
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+  }
+}
+
+/* Hero Section */
+.contact__hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 2rem 80px;
+  background: var(--pivot-light);
+  
+  @media (max-width: 768px) {
+    padding: 120px 1.5rem 60px;
+    min-height: 50vh;
+  }
+}
+
+.contact__hero-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.contact__title {
+  font-size: clamp(64px, 10vw, 120px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--pivot-black);
+  margin-bottom: 32px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+  }
+}
+
+.contact__subtitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.5;
+  color: var(--pivot-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Container */
+.contact__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 100px 2rem 120px;
+  
+  @media (max-width: 768px) {
+    padding: 80px 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 60px 1rem;
+  }
 }
 
 .contact__wrapper {
-  max-width: 960px;
-}
-
-.contact h1 {
-  font-size: 48px;
-  font-weight: 600;
-}
-
-.contact__intro {
-  margin-top: 16px;
-  max-width: 560px;
-}
-
-.contact__grid {
-  margin-top: 48px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
 }
 
-.contact__info p {
+/* Contact Info */
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact__info-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--pivot-black);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.contact__info-text {
+  font-size: clamp(16px, 1.8vw, 20px);
+  line-height: 1.7;
+  color: var(--pivot-muted);
+  margin: 0;
+}
+
+.contact__info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.contact__info-link {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.contact__info-link:hover {
+  opacity: 0.7;
+}
+
+.contact__info-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact__info-item:hover {
+  padding-left: 8px;
+}
+
+.contact__info-icon {
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  justify-content: center;
+  background: var(--pivot-light);
+  border-radius: 50%;
+  color: var(--pivot-black);
+  flex-shrink: 0;
 }
 
-.contact__form input,
-.contact__form textarea {
+.contact__info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact__info-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pivot-muted);
+}
+
+.contact__info-value {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 500;
+  color: var(--pivot-black);
+}
+
+/* Contact Form */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 48px;
+  border-radius: 16px;
+  
+  @media (max-width: 768px) {
+    padding: 40px 32px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 32px 24px;
+  }
+}
+
+.contact__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact__form-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pivot-black);
+}
+
+.contact__form-input,
+.contact__form-textarea {
   width: 100%;
-  padding: 14px;
-  border: 1px solid var(--pivot-border);
-  border-radius: 6px;
-  margin-bottom: 16px;
-  font-size: 14px;
+  padding: 16px 20px;
+  border: 2px solid #12121208;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--pivot-black);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.contact__form-input:focus,
+.contact__form-textarea:focus {
+  border-color: var(--pivot-black);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.contact__form-input::placeholder,
+.contact__form-textarea::placeholder {
+  color: var(--pivot-muted);
+  opacity: 0.6;
+}
+
+.contact__form-textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
+
+.contact__form-submit {
+  align-self: flex-start;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  transition: all 0.3s ease;
+}
+
+.contact__form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Smooth Scroll Behavior */
+.contact * {
+  will-change: transform, opacity;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .contact *,
+  .contact__form-submit,
+  .contact__info-item {
+    animation: none !important;
+    transition: none !important;
+  }
 }

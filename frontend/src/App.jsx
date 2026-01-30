@@ -3,6 +3,7 @@ import DefaultLayout from "./layouts/DefaultLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Impact from "./pages/Impact";
+import Programs from "./pages/Programs";
 import Contact from "./pages/Contact";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/programs" element={<Programs />} />
         <Route path="/impact" element={<Impact />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

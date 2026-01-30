@@ -8,7 +8,7 @@ export default function GetInvolved() {
       title: "Donate",
       headline: "Invest in Her Future",
       description: "Your contribution directly funds scholarships, mentorship programs, and resources that transform aspiring leaders into changemakers. Every dollar creates ripple effects of empowerment across communities.",
-      image: "./Photo4.jpg",
+      image: "./Photo12.jpg",
       ctaBtn: "Make an Impact"
     },
     {
@@ -23,7 +23,7 @@ export default function GetInvolved() {
       headline: "Share Your Expertise",
       description: "Mentor the next generation, facilitate workshops, or contribute your professional skills. Our volunteers are the heartbeat of our community—lending experience, wisdom, and encouragement.",
       ctaBtn: "Get Started",
-      image: "./Photo2.jpg"
+      image: "./Photo9.jpg"
     }
   ];
 
@@ -32,8 +32,8 @@ export default function GetInvolved() {
       <Container>
         <SectionTitle 
           className="get-involved__title"
-          title="Get Involved"
-          subtitle="Join us in building leadership and innovation."
+          title="Join the Movement"
+          subtitle="Building leadership and innovation."
         />
 
         <div className="get-involved__cards">
@@ -56,7 +56,7 @@ export default function GetInvolved() {
                     {item.headline && <strong>{item.headline}<br /></strong>}
                     {item.description}
                   </p>
-                  <Button className="get-involved__button">Learn More</Button>
+                  <Button className="get-involved__button">{item.ctaBtn}</Button>
                 </div>
               </div>
             </div>

@@ -1,5 +1,4 @@
 .navbar {
-  background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -38,7 +37,7 @@
   color: white;
   border: none;
   padding: 0.6rem 1.3rem;
-  border-radius: var(--radius);
+  border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
 }
