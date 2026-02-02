@@ -10,8 +10,7 @@ export default function Home() {
       <Stats />
       <GetInvolved />
       <div className="brief">
-        <p>A global initiative dedicated to unlocking the leadership potential of young women. 
-          Through mentorship, skill-building workshops, and a supportive community
+        <p>A worldwide initiative, committed to nurturing the leadership potential of young women, through guidance, hands-on learning, and a community that believes in them.
         </p>
       </div>
       <Testimonials />

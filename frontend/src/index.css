@@ -262,7 +262,7 @@ h1, h2, h3, h4 {
   align-items: center;
   
   @media (max-width: 768px) {
-    padding: 90px 0 0;
+    padding: 130px 0 0;
   }
 }
 
@@ -298,9 +298,10 @@ h1, h2, h3, h4 {
 }
 
 .hero__title {
-  font-size: 64px;
+  font-size: 72px;
   font-weight: 600;
   line-height: 1.1;
+  max-width: 950px;
   margin-bottom: 24px;
   
   @media (max-width: 1024px) {
@@ -519,6 +520,26 @@ h1, h2, h3, h4 {
   background: rgba(0, 0, 0, 0.3);
 }
 
+.section-title-wrapper {
+  margin-bottom: 64px;
+  text-align: center;
+}
+.section-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--pivot-black);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 32px;
+  }
+}
+
 /* GET INVOLVED SECTION */
 .get-involved {
   background: var(--pivot-light);
@@ -533,12 +554,14 @@ h1, h2, h3, h4 {
 .get-involved__title {
   margin-bottom: 80px;
   text-align: center;
+
 }
 
 .get-involved__cards {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  margin-top: 40px;
 }
 
 .get-involved__card {

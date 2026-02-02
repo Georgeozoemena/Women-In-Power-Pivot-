@@ -6,24 +6,24 @@ export default function GetInvolved() {
   const items = [
     {
       title: "Donate",
-      headline: "Invest in Her Future",
-      description: "Your contribution directly funds scholarships, mentorship programs, and resources that transform aspiring leaders into changemakers. Every dollar creates ripple effects of empowerment across communities.",
-      image: "./Photo12.jpg",
+      headline: "Give Hope. Build Leaders. Change Lives.",
+      description: "Your support, transforms potential into possibility by funding programs that will guide, eqiup, and uplift women on their own journey to leadership. One gift, can shape a lifetime of impact",
+      image: "./Donate.jpg",
       ctaBtn: "Make an Impact"
     },
     {
-      title: "Partner",
-      headline: "Collaborate for Change",
-      description: "Join corporations, NGOs, and educational institutions already partnering with us. Together, we expand opportunities, share resources, and create sustainable pathways for women's leadership.",
+      title: "Partner with Us",
+      headline: "Coming together to make a difference",
+      description: "Work alongside corporations, NGO's, and educational institutions, committed to expanding access to opportunity. By working together, we unlock opportinities, share resources, and nurture a future where women lead, influence, and also transform communities.",
       image: "./Photo1.jpg",
       ctaBtn: "Become a Partner"
     },
     {
       title: "Volunteer",
-      headline: "Share Your Expertise",
-      description: "Mentor the next generation, facilitate workshops, or contribute your professional skills. Our volunteers are the heartbeat of our community—lending experience, wisdom, and encouragement.",
+      headline: "Be Part of the Journey",
+      description: "Lend your expertise through mentorship or skills-based support. Leading impactful workshops and helping shape confident leaders, our volunteers bring encouragement, experience, and the belief that every woman has the power to lead.",
       ctaBtn: "Get Started",
-      image: "./Photo9.jpg"
+      image: "./Volunteer.jpg"
     }
   ];
 
@@ -33,7 +33,7 @@ export default function GetInvolved() {
         <SectionTitle 
           className="get-involved__title"
           title="Join the Movement"
-          subtitle="Building leadership and innovation."
+          subtitle="Join the movement, Uplifting women, growth in impact and success"
         />
 
         <div className="get-involved__cards">

@@ -12,7 +12,7 @@ export default function Hero() {
       description: "We convene ideas, people, and platforms that drive meaningful change across communities."
     },
     {
-      image: "./Photo5.jpg",
+      image: "./Group.jpg",
       title: "Empowering Innovation Through Mentorship",
       description: "Connecting aspiring leaders with experienced mentors who guide, inspire, and open doors."
     },
@@ -33,7 +33,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="hero__title">
-            Women and Society - We stand to uncover and to transform
+            Women and Society - <br />We stand to uncover <br />and to transform
           </h1>
 
           <p className="hero__description">
