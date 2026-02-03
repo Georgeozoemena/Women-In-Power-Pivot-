@@ -5,7 +5,7 @@ import Container from "../ui/Container";
 import "../../styles/stats.css";
 
 // Animated counter component
-function AnimatedCounter({ value, duration = 2 }) {
+function AnimatedCounter({ value }) {
   const ref = useRef(null);
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, {

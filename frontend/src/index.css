@@ -255,14 +255,15 @@ h1, h2, h3, h4 {
 
 /* HERO SECTION STYLING */
 .hero {
-  background: var(--pivot-light);
+  /* background: var(--pivot-light); */
   padding: 180px 0 0;
   min-height: 100vh;
   display: flex;
   align-items: center;
   
-  @media (max-width: 768px) {
+  @media (max-width: 768px) and (max-width: 480px) {
     padding: 130px 0 0;
+    overflow-x: hidden;
   }
 }
 
@@ -724,5 +725,19 @@ h1, h2, h3, h4 {
   p {
     color: #fff;
     font-size: 48px;
+
+  }
+  @media (max-width: 768px) {
+    padding: 60px 40px;
+    p {
+      font-size: 150%;
+    } 
+    
+  }
+  
+  @media (max-width: 480px) {
+    p {
+      font-size: 28px;
+    }
   }
 }

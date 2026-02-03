@@ -33,7 +33,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="hero__title">
-            Women and Society - <br />We stand to uncover <br />and to transform
+            Women and Society <br />We stand to uncover <br />and to transform
           </h1>
 
           <p className="hero__description">
