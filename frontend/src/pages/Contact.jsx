@@ -1,11 +1,20 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "../components/ui/Button";
 import "../styles/contact.css";
 
 export default function Contact() {
   const containerRef = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -17,8 +26,8 @@ export default function Contact() {
     {
       icon: Mail,
       label: "Email",
-      value: "hello@womeninpower.org",
-      link: "mailto:hello@womeninpower.org"
+      value: "officialwomeninpower@gmail.com",
+      link: "mailto:officialwomeninpower@gmail.com"
     },
     {
       icon: Phone,
@@ -33,6 +42,73 @@ export default function Contact() {
       link: null
     }
   ];
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      // Option 1: Using your own backend API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      /* Option 2: Using EmailJS (see setup instructions below)
+      const response = await emailjs.send(
+        'YOUR_SERVICE_ID',
+        'YOUR_TEMPLATE_ID',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'officialwomeninpower@gmail.com'
+        },
+        'YOUR_PUBLIC_KEY'
+      );
+      */
+
+      /* Option 3: Using Formspree
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      */
+
+      if (response.ok) {
+        setStatus({
+          type: 'success',
+          message: 'Thank you! Your message has been sent successfully.'
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: 'Sorry, there was an error sending your message. Please try again or email us directly.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="contact" ref={containerRef}>
@@ -109,19 +185,33 @@ export default function Contact() {
           {/* Contact Form */}
           <motion.form 
             className="contact__form"
+            onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
+            {status.message && (
+              <motion.div
+                className={`contact__form-status contact__form-status--${status.type}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                {status.message}
+              </motion.div>
+            )}
+
             <div className="contact__form-group">
               <label htmlFor="name" className="contact__form-label">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
+                value={formData.name}
+                onChange={handleChange}
                 className="contact__form-input"
                 placeholder="Your full name"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -131,9 +221,12 @@ export default function Contact() {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="contact__form-input"
                 placeholder="your.email@example.com"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -143,9 +236,12 @@ export default function Contact() {
                 type="text"
                 id="subject"
                 name="subject"
+                value={formData.subject}
+                onChange={handleChange}
                 className="contact__form-input"
                 placeholder="What's this about?"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
@@ -154,16 +250,32 @@ export default function Contact() {
               <textarea
                 id="message"
                 name="message"
+                value={formData.message}
+                onChange={handleChange}
                 className="contact__form-textarea"
                 placeholder="Tell us more..."
                 rows="6"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
-            <Button className="contact__form-submit">
-              <Send size={18} />
-              Send Message
+            <Button 
+              type="submit"
+              className="contact__form-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="contact__form-spinner"></span>
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send size={18} />
+                  Send Message
+                </>
+              )}
             </Button>
           </motion.form>
         </div>

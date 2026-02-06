@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, color } from "framer-motion";
 import Button from "../ui/Button";
 
 export default function Hero() {
@@ -8,18 +8,18 @@ export default function Hero() {
   const slides = [
     {
       image: "./Photo3.jpg",
-      title: "Building Leadership That Shapes Society",
-      description: "We convene ideas, people, and platforms that drive meaningful change across communities."
+      title: "Provisional Platform for the adequate mentorship",
+      description: "Connecting women to experienced mentors in business, tech, entrepreneurship, and public service."
     },
     {
       image: "./Group.jpg",
-      title: "Empowering Innovation Through Mentorship",
-      description: "Connecting aspiring leaders with experienced mentors who guide, inspire, and open doors."
+      title: "Training and Workshops, in upskilling engagements",
+      description: "We provide series of transformative programs, where women acquire life-changing information and experiencing."
     },
     {
       image: "./Photo8.jpg",
-      title: "Creating Impact Across Continents",
-      description: "From local communities to global stages, our network of women leaders creates lasting change."
+      title: "Creating forum for the intentional community support and structure",
+      description: "  Women helping women in a system of support, creating the needful healthy environment that both support and facilitate growth."
     }
   ];
 
@@ -33,16 +33,22 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="hero__title">
-            Women and Society <br />We stand to uncover <br />and to transform
+            <span className="hook">Women</span> and <span className="hook">Society</span> <br />We stand to uncover Strength and transform
           </h1>
 
           <p className="hero__description">
-            Developing lasting impact in women, to build, thrive, and lead. One woman at a time.
+            High scaling the Innate value of women, to thrive both personally and professionally.
           </p>
 
           <div className="hero__actions">
-            <Button>Join the Movement</Button>
-            <Button variant="secondary">Our Impact</Button>
+            <Button style={{
+              backgroundColor: '#FF5500',
+              color: '#fff'
+            }}>Join the Movement</Button>
+            <Button style={{
+              border: '1px solid #fff',
+              color: '#fff'
+            }} variant="secondary">Our Impact</Button>
           </div>
         </motion.div>
 

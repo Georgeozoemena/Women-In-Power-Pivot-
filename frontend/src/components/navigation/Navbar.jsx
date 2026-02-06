@@ -1,30 +1,59 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, color } from "framer-motion";
 import Button from "../ui/Button";
 import "../../styles/Navbar.css";  
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [navTheme, setNavTheme] = useState('dark'); // 'dark' or 'light'
   const { scrollY } = useScroll();
   
   const navBackground = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(0, 0, 0, 0)", "rgba(255, 255, 255, 0.95)"]
+    navTheme === 'dark' 
+      ? ["rgba(0, 0, 0, 0)", "rgb(18, 18, 18)"]
+      : ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.95)"]
   );
   
   const navShadow = useTransform(
     scrollY,
     [0, 100],
-    ["0px 0px 0px rgba(0, 0, 0, 0)", "0px 2px 12px rgba(0, 0, 0, 0.3)"]
+    ["0px 0px 0px rgba(0, 0, 0, 0)", "0px 2px 20px rgba(0, 0, 0, 0.1)"]
   );
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Detect which section we're on and change theme accordingly
+      const sections = [
+        { selector: '.hero', theme: 'dark' },
+        { selector: '.stats', theme: 'dark' },
+        { selector: '.get-involved', theme: 'light' },
+        { selector: '.brief', theme: 'dark' },
+        { selector: '.testimonials', theme: 'light' }
+      ];
+      
+      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+      
+      for (const section of sections) {
+        const element = document.querySelector(section.selector);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const elementTop = window.scrollY + rect.top;
+          const elementBottom = elementTop + rect.height;
+          
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            setNavTheme(section.theme);
+            break;
+          }
+        }
+      }
     };
 
+    handleScroll(); // Initial check
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -67,14 +96,14 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}
+      className={`navbar ${isScrolled ? "navbar--scrolled" : ""} ${navTheme === 'light' ? "navbar--light" : "navbar--dark"}`}
       style={{
         backgroundColor: navBackground,
         boxShadow: navShadow
       }}
     >
       <div className="navbar__container">
-        {/* Logo */}
+        {/* Logo - Always visible */}
         <motion.a
           href="/"
           className="navbar__logo"
@@ -83,10 +112,12 @@ export default function Navbar() {
           transition={{ duration: 0.5 }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          <span className="navbar__logo-text">Women in Power</span>
+          <span style={{
+            color: '#ff5500'
+          }} className="navbar__logo-text">Women in Power</span>
         </motion.a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - Theme changes */}
         <motion.div
           className="navbar__links"
           initial={{ opacity: 0, y: -20 }}
@@ -109,17 +140,20 @@ export default function Navbar() {
           ))}
         </motion.div>
 
-        {/* Desktop CTA Button */}
+        {/* Desktop CTA Button - Always visible */}
         <motion.div
           className="navbar__cta"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Button size="small">Get Involved</Button>
+          <Button style={{
+                  backgroundColor: '#ff5500',
+                  color: '#fff',
+                }} size="small" className="navbar__cta-button">Get Involved</Button>
         </motion.div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Toggle - Theme changes */}
         <button
           className={`navbar__toggle ${isMobileMenuOpen ? "navbar__toggle--active" : ""}`}
           onClick={(e) => {
@@ -183,7 +217,10 @@ export default function Navbar() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: navLinks.length * 0.05 }}
               >
-                <Button fullWidth onClick={handleLinkClick}>Get Involved</Button>
+                <Button style={{
+                  backgroundColor: '#ff5500',
+                  color: '#fff',
+                }} fullWidth onClick={handleLinkClick}>Get Involved</Button>
               </motion.div>
             </div>
           </motion.div>

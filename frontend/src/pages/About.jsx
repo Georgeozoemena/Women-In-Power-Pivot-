@@ -141,15 +141,23 @@ export default function About() {
           <div className="about__values-grid">
             {[
               {
-                title: "Integrity",
+                title: "Leadership",
                 description: "We operate with transparency and honesty, building trust through our actions and commitments."
               },
               {
-                title: "Collaboration",
+                title: "Excellence",
+                description: "We operate with transparency and honesty, building trust through our actions and commitments."
+              },
+              {
+                title: "Growth",
                 description: "We believe in the power of partnership, creating spaces where diverse voices strengthen our collective impact."
               },
               {
-                title: "Service",
+                title: "Empowerment",
+                description: "Leadership is a privilege and a responsibility. We lead to serve, uplift, and create lasting change."
+              },
+              {
+                title: "Community",
                 description: "Leadership is a privilege and a responsibility. We lead to serve, uplift, and create lasting change."
               }
             ].map((value, index) => (

@@ -39,26 +39,26 @@ function AnimatedCounter({ value }) {
 const stats = [
   { 
     icon: Globe, 
-    value: "25+", 
-    label: "States Reached",
+    value: "2000+", 
+    label: "Women Reached",
     color: "#BE5103"
   },
   { 
     icon: Calendar, 
     value: "10+", 
-    label: "Annual Conferences",
+    label: "Personal & Professional Advancement Rate",
     color: "#BE5103"
   },
   { 
     icon: TrendingUp, 
     value: "85%", 
-    label: "Career Advancement Rate",
+    label: "Skill Acquisition - Certification Achieved",
     color: "#BE5103"
   },
   { 
     icon: Users, 
     value: "200+", 
-    label: "Partner Organizations",
+    label: "Event Participation",
     color: "#BE5103"
   },
 ];
