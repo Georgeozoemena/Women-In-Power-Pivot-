@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-* {
+
+*  {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
@@ -27,8 +28,6 @@ section {
 }
 
 .hook {
-  /* font-style: italic; */
-  /* font-size: 90px; */
   color: #FF5F0F;
   text-transform: uppercase;
   font-weight: 400;
@@ -42,6 +41,7 @@ section {
   --pivot-light: #f7f7f5;
   --container-max-width: 1280px;
 }
+
 
 h1, h2, h3, h4 {
   letter-spacing: -0.015em;

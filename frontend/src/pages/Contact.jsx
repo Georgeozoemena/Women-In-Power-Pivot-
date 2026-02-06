@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import emailjs from '@emailjs/browser';
 import Button from "../components/ui/Button";
 import "../styles/contact.css";
 
@@ -32,8 +33,8 @@ export default function Contact() {
     {
       icon: Phone,
       label: "Phone",
-      value: "+234 XXX XXX XXXX",
-      link: "tel:+234XXXXXXXXX"
+      value: "+234 816 408 2120",
+      link: "tel:+2348164082120"
     },
     {
       icon: MapPin,
@@ -55,52 +56,46 @@ export default function Contact() {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    try {
-      // Option 1: Using your own backend API
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    // Validate environment variables
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      /* Option 2: Using EmailJS (see setup instructions below)
-      const response = await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('EmailJS configuration missing. Please check your .env.local file.');
+      setStatus({
+        type: 'error',
+        message: 'Email service is not configured. Please contact the administrator.'
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Send email using EmailJS with environment variables
+      await emailjs.send(
+        serviceId,
+        templateId,
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_email: 'officialwomeninpower@gmail.com'
         },
-        'YOUR_PUBLIC_KEY'
+        publicKey
       );
-      */
 
-      /* Option 3: Using Formspree
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // Success
+      setStatus({
+        type: 'success',
+        message: 'Thank you! Your message has been sent successfully.'
       });
-      */
-
-      if (response.ok) {
-        setStatus({
-          type: 'success',
-          message: 'Thank you! Your message has been sent successfully.'
-        });
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    // eslint-disable-next-line no-unused-vars
+      
+      // Clear form
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
     } catch (error) {
+      console.error('EmailJS Error:', error);
       setStatus({
         type: 'error',
         message: 'Sorry, there was an error sending your message. Please try again or email us directly.'

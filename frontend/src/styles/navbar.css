@@ -24,12 +24,16 @@
   justify-content: space-between;
   position: relative;
   z-index: 1001;
-  
-  @media (max-width: 968px) {
+}
+
+@media (max-width: 968px) {
+  .navbar__container {
     padding: 0 1.5rem;
   }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
+  .navbar__container {
     padding: 0 1rem;
   }
 }
@@ -42,8 +46,10 @@
   transition: opacity 0.3s ease;
   position: relative;
   z-index: 1002;
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
+  .navbar__logo {
     font-size: 18px;
   }
 }
@@ -61,8 +67,10 @@
   display: flex;
   align-items: center;
   gap: 2.5rem;
-  
-  @media (max-width: 968px) {
+}
+
+@media (max-width: 968px) {
+  .navbar__links {
     display: none;
   }
 }
@@ -119,8 +127,8 @@
 }
 
 /* CTA Button - Always stays same (brand identity) */
-.navbar__cta {
-  @media (max-width: 968px) {
+@media (max-width: 968px) {
+  .navbar__cta {
     display: none;
   }
 }
@@ -150,8 +158,10 @@
   position: relative;
   z-index: 1002;
   -webkit-tap-highlight-color: transparent;
-  
-  @media (max-width: 968px) {
+}
+
+@media (max-width: 968px) {
+  .navbar__toggle {
     display: flex;
   }
 }
@@ -204,8 +214,10 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  
-  @media (min-width: 969px) {
+}
+
+@media (min-width: 969px) {
+  .navbar__mobile-menu {
     display: none;
   }
 }
@@ -215,8 +227,10 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
+  .navbar__mobile-links {
     padding: 1.5rem 1rem;
   }
 }
@@ -232,8 +246,10 @@
   align-items: center;
   justify-content: space-between;
   -webkit-tap-highlight-color: transparent;
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
+  .navbar__mobile-link {
     font-size: 16px;
     padding: 0.875rem 0;
   }
@@ -279,8 +295,10 @@
   z-index: 998;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  
-  @media (min-width: 969px) {
+}
+
+@media (min-width: 969px) {
+  .navbar__overlay {
     display: none;
   }
 }
