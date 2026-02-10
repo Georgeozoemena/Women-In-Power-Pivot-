@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://women-in-power-pivot.vercel.app/sitemap.xml
