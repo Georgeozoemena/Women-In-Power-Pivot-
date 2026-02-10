@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";  // ← ADD THIS IMPORT
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Button from "../ui/Button";
-import "../../styles/Navbar.css";
+import "../../styles/navbar.css";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
