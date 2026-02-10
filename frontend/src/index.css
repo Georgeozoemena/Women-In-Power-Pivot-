@@ -159,14 +159,29 @@ h1, h2, h3, h4 {
   
   @media (max-width: 1024px) {
     font-size: 56px;
+
+    .hero__title span:nth-child(3)::after {
+      content: "";
+      display: block;
+    }
   }
   
   @media (max-width: 768px) {
     font-size: 40px;
+
+    .hero__title span:nth-child(3)::after {
+      content: "";
+      display: block;
+    }
   }
   
   @media (max-width: 480px) {
     font-size: 32px;
+    
+    .hero__title span:nth-child(3)::after {
+      content: "";
+      display: block;
+    }
   }
 }
 
