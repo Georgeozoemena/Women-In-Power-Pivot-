@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence, color } from "framer-motion";
+import { Link } from "react-router-dom";  // ← ADD THIS IMPORT
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Button from "../ui/Button";
-import "../../styles/navbar.css";  
+import "../../styles/Navbar.css";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [navTheme, setNavTheme] = useState('dark'); // 'dark' or 'light'
+  const [navTheme, setNavTheme] = useState('dark');
   const { scrollY } = useScroll();
   
   const navBackground = useTransform(
@@ -27,7 +28,6 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
-      // Detect which section we're on and change theme accordingly
       const sections = [
         { selector: '.hero', theme: 'dark' },
         { selector: '.stats', theme: 'dark' },
@@ -36,7 +36,7 @@ export default function Navbar() {
         { selector: '.testimonials', theme: 'light' }
       ];
       
-      const scrollPosition = window.scrollY + 100; // Offset for navbar height
+      const scrollPosition = window.scrollY + 100;
       
       for (const section of sections) {
         const element = document.querySelector(section.selector);
@@ -53,12 +53,11 @@ export default function Navbar() {
       }
     };
 
-    handleScroll(); // Initial check
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobileMenuOpen && !event.target.closest('.navbar')) {
@@ -70,7 +69,6 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isMobileMenuOpen]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -103,21 +101,24 @@ export default function Navbar() {
       }}
     >
       <div className="navbar__container">
-        {/* Logo - Always visible */}
-        <motion.a
-          href="/"
+        {/* Logo - CHANGED to Link */}
+        <Link
+          to="/"
           className="navbar__logo"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          <span style={{
-            color: '#ff5500'
-          }} className="navbar__logo-text">Women in Power</span>
-        </motion.a>
+          <motion.span
+            style={{ color: '#ff5500' }}
+            className="navbar__logo-text"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Women in Power
+          </motion.span>
+        </Link>
 
-        {/* Desktop Navigation - Theme changes */}
+        {/* Desktop Navigation - CHANGED to Link */}
         <motion.div
           className="navbar__links"
           initial={{ opacity: 0, y: -20 }}
@@ -125,35 +126,44 @@ export default function Navbar() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           {navLinks.map((link, index) => (
-            <motion.a
+            <motion.div
               key={link.name}
-              href={link.href}
-              className="navbar__link"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
               whileHover={{ y: -2 }}
             >
-              <span className="navbar__link-text">{link.name}</span>
-              <span className="navbar__link-underline"></span>
-            </motion.a>
+              <Link
+                to={link.href}
+                className="navbar__link"
+              >
+                <span className="navbar__link-text">{link.name}</span>
+                <span className="navbar__link-underline"></span>
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Desktop CTA Button - Always visible */}
+        {/* Desktop CTA Button */}
         <motion.div
           className="navbar__cta"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Button style={{
-                  backgroundColor: '#ff5500',
-                  color: '#fff',
-                }} size="small" className="navbar__cta-button">Get Involved</Button>
+          <Button 
+            style={{
+              backgroundColor: '#ff5500',
+              color: '#fff',
+            }} 
+            size="small" 
+            className="navbar__cta-button"
+          >
+            Get Involved
+          </Button>
         </motion.div>
 
-        {/* Mobile Menu Toggle - Theme changes */}
+        {/* Mobile Menu Toggle */}
         <button
           className={`navbar__toggle ${isMobileMenuOpen ? "navbar__toggle--active" : ""}`}
           onClick={(e) => {
@@ -169,7 +179,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - CHANGED to Link */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -181,34 +191,36 @@ export default function Navbar() {
           >
             <div className="navbar__mobile-links">
               {navLinks.map((link, index) => (
-                <motion.a
+                <motion.div
                   key={link.name}
-                  href={link.href}
-                  className="navbar__mobile-link"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ delay: index * 0.05 }}
-                  onClick={handleLinkClick}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  <span className="navbar__mobile-link-text">{link.name}</span>
-                  <svg 
-                    className="navbar__mobile-link-icon" 
-                    width="16" 
-                    height="16" 
-                    viewBox="0 0 16 16" 
-                    fill="none"
+                  <Link
+                    to={link.href}
+                    className="navbar__mobile-link"
+                    onClick={handleLinkClick}
                   >
-                    <path 
-                      d="M6 12L10 8L6 4" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </motion.a>
+                    <span className="navbar__mobile-link-text">{link.name}</span>
+                    <svg 
+                      className="navbar__mobile-link-icon" 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 16 16" 
+                      fill="none"
+                    >
+                      <path 
+                        d="M6 12L10 8L6 4" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Link>
+                </motion.div>
               ))}
               <motion.div
                 className="navbar__mobile-cta"
@@ -217,10 +229,16 @@ export default function Navbar() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: navLinks.length * 0.05 }}
               >
-                <Button style={{
-                  backgroundColor: '#ff5500',
-                  color: '#fff',
-                }} fullWidth onClick={handleLinkClick}>Get Involved</Button>
+                <Button 
+                  style={{
+                    backgroundColor: '#ff5500',
+                    color: '#fff',
+                  }} 
+                  fullWidth 
+                  onClick={handleLinkClick}
+                >
+                  Get Involved
+                </Button>
               </motion.div>
             </div>
           </motion.div>
