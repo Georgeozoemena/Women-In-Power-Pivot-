@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, color } from "framer-motion";
 import Button from "../ui/Button";
-import "../../styles/Navbar.css";  
+import "../../styles/navbar.css";  
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
