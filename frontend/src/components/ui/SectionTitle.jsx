@@ -4,7 +4,7 @@ export default function SectionTitle({ title, subtitle }) {
   return (
     <div className="section-title-wrapper">
       <h2 className="section-title">
-        {title}
+         {title} <span className="accent">Movement</span>
       </h2>
       {subtitle && (
         <p>

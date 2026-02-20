@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 *  {
@@ -39,12 +40,14 @@ section {
   --pivot-gold: #c6a75e;
   --pivot-muted: #6b7280;
   --pivot-light: #f7f7f5;
+  --pivot-orange: #FF5F0F;
   --container-max-width: 1280px;
 }
 
 
 h1, h2, h3, h4 {
   letter-spacing: -0.015em;
+  font-family: 'Anton', sans-serif;
 }
 
 .container {
@@ -62,7 +65,13 @@ h1, h2, h3, h4 {
   }
 }
 
-/* BUTTON STYLING */
+/* Accent */
+.accent {
+  color: #FF5643;
+  font-weight: 800;
+}
+
+/* BUTTON STYLING WITH SMART ANIMATIONS */
 .btn, button {
   border: none;
   cursor: pointer;
@@ -70,38 +79,130 @@ h1, h2, h3, h4 {
   font-weight: 500;
   padding: 14px 28px;
   border-radius: 25px;
-  transition: all 0.25s ease;
   font-family: 'Montserrat', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease,
+              color 0.3s ease;
+}
+
+/* Ripple effect on click */
+.btn::before, 
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn:active::before,
+button:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+  transition: width 0s, height 0s, opacity 0s;
 }
 
 .btn {
   padding: 14px 48px;
 }
 
+/* PRIMARY BUTTON - Slide in from left */
 .btn--primary {
   background: var(--pivot-black);
   color: white;
 }
 
-.btn--primary:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--pivot-orange);
+  transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
 }
 
+.btn--primary:hover::after {
+  left: 0;
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 95, 15, 0.3);
+}
+
+/* SECONDARY BUTTON - Expand from center */
 .btn--secondary {
   background: transparent;
   border: 1px solid var(--pivot-black);
   color: var(--pivot-black);
 }
 
-.btn--secondary:hover {
+.btn--secondary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
   background: var(--pivot-black);
-  color: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
 }
 
+.btn--secondary:hover::after {
+  width: 150%;
+  height: 400%;
+  border-radius: 0;
+}
+
+.btn--secondary:hover {
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 15, 15, 0.2);
+}
+
+/* GOLD BUTTON - Wipe from bottom */
 .btn--gold {
   background: var(--pivot-gold);
   color: var(--pivot-black);
+}
+
+.btn--gold::after {
+  content: '';
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--pivot-orange);
+  transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
+}
+
+.btn--gold:hover::after {
+  bottom: 0;
+}
+
+.btn--gold:hover {
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 95, 15, 0.25);
 }
 
 /* HERO SECTION STYLING */
@@ -259,16 +360,12 @@ h1, h2, h3, h4 {
 .hero-carousel__image-wrapper {
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2); */
   transition: box-shadow 0.7s ease;
   
   @media (max-width: 768px) {
     border-radius: 16px;
   }
-}
-
-.hero-carousel__slide--active .hero-carousel__image-wrapper {
-  /* box-shadow: 0 35px 90px rgba(0, 0, 0, 0.3); */
 }
 
 .hero-carousel__slide:not(.hero-carousel__slide--active):hover .hero-carousel__image-wrapper {
@@ -345,7 +442,7 @@ h1, h2, h3, h4 {
 .hero-carousel__dot {
   width: 40px;
   height: 4px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -376,7 +473,7 @@ h1, h2, h3, h4 {
   left: 0;
   bottom: 0;
   width: 0;
-  background: var(--pivot-light);
+  background: #FF5F0F;
   transition: width 0.3s ease;
   border-radius: 2px;
 }
@@ -393,12 +490,14 @@ h1, h2, h3, h4 {
   margin-bottom: 64px;
   text-align: center;
 }
+
 .section-title {
   font-size: 64px;
   font-weight: 700;
-  color: var(--pivot-black);
+  color: #121212;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  text-transform: uppercase;
   
   @media (max-width: 768px) {
     font-size: 36px;
@@ -411,9 +510,16 @@ h1, h2, h3, h4 {
 
 /* GET INVOLVED SECTION */
 .get-involved {
-  background: var(--pivot-light);
+  background: #FDFFF5;
   padding: 5rem 2.5rem;
 
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem;
+  }
+  
+   @media (max-width: 480px) {
+    padding: 3rem 1rem;
+  }
   button {
     margin-top: 16px;
     width: fit-content;
@@ -583,28 +689,55 @@ h1, h2, h3, h4 {
   align-self: flex-start;
   margin-top: 16px;
   width: fit-content;
+  position: relative;
+  overflow: hidden;
+}
+
+.get-involved__button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--pivot-orange);
+  transition: right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: -1;
+}
+
+.get-involved__button:hover::after {
+  right: 0;
+}
+
+.get-involved__button:hover {
+  color: #fff;
 }
 
 
 .brief {
   background-color: #0f0f0f;
   padding: 70px 90px;
+  font-style: italic;
+  min-height: 100vh;
+  letter-spacing: -2px;
   
   p {
-    color: #fff;
-    font-size: 48px;
-
+    font-size: 60px;
+    
   }
+  
   @media (max-width: 768px) {
     padding: 60px 40px;
     p {
-      font-size: 150%;
+      min-height: 80vh;
+      font-size: 36px;
     } 
     
   }
   
   @media (max-width: 480px) {
     p {
+      min-height: 80vh;
       font-size: 28px;
     }
   }

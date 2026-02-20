@@ -32,7 +32,7 @@ export default function GetInvolved() {
       <Container>
         <SectionTitle 
           className="get-involved__title"
-          title="Join the Movement"
+          title="Join the"
           subtitle="Join the movement, Uplifting women, growth in impact and success"
         />
 
