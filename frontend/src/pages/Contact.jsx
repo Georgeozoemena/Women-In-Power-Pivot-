@@ -1,12 +1,10 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import emailjs from '@emailjs/browser';
-import Button from "../components/ui/Button";
 import "../styles/contact.css";
 
 export default function Contact() {
-  const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,13 +13,6 @@ export default function Contact() {
   });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
   const contactInfo = [
     {
@@ -45,10 +36,7 @@ export default function Contact() {
   ];
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -56,225 +44,118 @@ export default function Contact() {
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
-    // Validate environment variables
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
-      console.error('EmailJS configuration missing. Please check your .env.local file.');
-      setStatus({
-        type: 'error',
-        message: 'Email service is not configured. Please contact the administrator.'
-      });
+      setStatus({ type: 'error', message: 'Email service is not configured.' });
       setIsSubmitting(false);
       return;
     }
 
     try {
-      // Send email using EmailJS with environment variables
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        publicKey
-      );
+      await emailjs.send(serviceId, templateId, {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      }, publicKey);
 
-      // Success
-      setStatus({
-        type: 'success',
-        message: 'Thank you! Your message has been sent successfully.'
-      });
-      
-      // Clear form
+      setStatus({ type: 'success', message: 'Message sent successfully!' });
       setFormData({ name: '', email: '', subject: '', message: '' });
-      
     } catch (error) {
-      console.error('EmailJS Error:', error);
-      setStatus({
-        type: 'error',
-        message: 'Sorry, there was an error sending your message. Please try again or email us directly.'
-      });
+      setStatus({ type: 'error', message: 'Failed to send message.' });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="contact" ref={containerRef}>
-      <div className="contact__hero">
-        <motion.div 
-          className="contact__hero-content"
-          style={{ y: textY }}
-        >
+    <div className="contact-page">
+      {/* Background Blobs */}
+      <div className="mesh-blob mesh-blob-1" style={{ top: '0', right: '-10%' }} />
+      <div className="mesh-blob mesh-blob-2" style={{ bottom: '0', left: '-10%' }} />
+
+      <div className="container section-padding">
+        <header className="contact-hero">
+          <span className="section-label">CONTACT US</span>
           <motion.h1
-            className="contact__title"
-            initial={{ opacity: 0, y: 60 }}
+            className="contact-hero__title"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8 }}
           >
-            Let's Connect
+            Let's <br />Connect.
           </motion.h1>
-          <motion.p
-            className="contact__subtitle"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Have questions? Want to partner with us? We'd love to hear from you.
-          </motion.p>
-        </motion.div>
-      </div>
+          <p className="contact-hero__subtitle">
+            Have questions? Want to partner? We'd love to hear from you.
+          </p>
+        </header>
 
-      <div className="contact__container">
-        <div className="contact__wrapper">
-          {/* Contact Info */}
-          <motion.div 
-            className="contact__info"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h2 className="contact__info-title">Get in Touch</h2>
-            <p className="contact__info-text">
-              Whether you're interested in our programs, seeking partnership opportunities, or have general inquiries, we're here to help.
-            </p>
-
-            <div className="contact__info-list">
-              {contactInfo.map((item, index) => {
-                const Icon = item.icon;
-                const content = (
-                  <motion.div
-                    key={item.label}
-                    className="contact__info-item"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                  >
-                    <div className="contact__info-icon">
-                      <Icon size={20} strokeWidth={1.5} />
-                    </div>
-                    <div className="contact__info-details">
-                      <span className="contact__info-label">{item.label}</span>
-                      <span className="contact__info-value">{item.value}</span>
-                    </div>
-                  </motion.div>
-                );
-
-                return item.link ? (
-                  <a href={item.link} key={item.label} className="contact__info-link">
-                    {content}
-                  </a>
-                ) : (
-                  content
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.form 
-            className="contact__form"
+        <div className="contact-layout">
+          {/* Form Side - Primary Focus */}
+          <motion.form
+            className="contact-form"
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
             {status.message && (
-              <motion.div
-                className={`contact__form-status contact__form-status--${status.type}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {status.message}
-              </motion.div>
+              <div className={`form-status ${status.type}`}>{status.message}</div>
             )}
-
-            <div className="contact__form-group">
-              <label htmlFor="name" className="contact__form-label">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="contact__form-input"
-                placeholder="Your full name"
-                required
-                disabled={isSubmitting}
-              />
+            <div className="form-group-row">
+              <div className="form-group">
+                <label className="form-label">Name</label>
+                <input type="text" name="name" className="form-input" value={formData.name} onChange={handleChange} required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Email</label>
+                <input type="email" name="email" className="form-input" value={formData.email} onChange={handleChange} required />
+              </div>
             </div>
-
-            <div className="contact__form-group">
-              <label htmlFor="email" className="contact__form-label">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="contact__form-input"
-                placeholder="your.email@example.com"
-                required
-                disabled={isSubmitting}
-              />
+            <div className="form-group">
+              <label className="form-label">Subject</label>
+              <input type="text" name="subject" className="form-input" value={formData.subject} onChange={handleChange} required />
             </div>
-
-            <div className="contact__form-group">
-              <label htmlFor="subject" className="contact__form-label">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="contact__form-input"
-                placeholder="What's this about?"
-                required
-                disabled={isSubmitting}
-              />
+            <div className="form-group">
+              <label className="form-label">Message</label>
+              <textarea name="message" className="form-textarea" rows="6" value={formData.message} onChange={handleChange} required />
             </div>
-
-            <div className="contact__form-group">
-              <label htmlFor="message" className="contact__form-label">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                className="contact__form-textarea"
-                placeholder="Tell us more..."
-                rows="6"
-                required
-                disabled={isSubmitting}
-              />
-            </div>
-
-            <Button 
-              type="submit"
-              className="contact__form-submit"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="contact__form-spinner"></span>
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send size={18} />
-                  Send Message
-                </>
-              )}
-            </Button>
+            <button type="submit" className="btn-contact-submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
           </motion.form>
+
+          {/* Info Side - Simple Integrated Flow */}
+          <div className="contact-info-list">
+            {contactInfo.map((item, idx) => {
+              const Icon = item.icon;
+              const content = (
+                <motion.div
+                  key={item.label}
+                  className="info-item-flat"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <div className="info-icon-small"><Icon size={18} /></div>
+                  <div className="info-text-group">
+                    <span className="info-label-small">{item.label}</span>
+                    <h3 className="info-value-small">
+                      {item.value}
+                      {item.link && <ArrowUpRight size={14} className="link-arrow-icon" />}
+                    </h3>
+                  </div>
+                </motion.div>
+              );
+              return item.link ? <a href={item.link} key={item.label} className="info-link-wrapper">{content}</a> : content;
+            })}
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

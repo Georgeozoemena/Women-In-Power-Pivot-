@@ -1,263 +1,201 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";  // ← ADD THIS IMPORT
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"; // eslint-disable-line no-unused-vars
+import { X } from "lucide-react";
 import Button from "../ui/Button";
 import "../../styles/navbar.css";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [navTheme, setNavTheme] = useState('dark');
-  const { scrollY } = useScroll();
-  
-  const navBackground = useTransform(
-    scrollY,
-    [0, 100],
-    navTheme === 'dark' 
-      ? ["rgba(0, 0, 0, 0)", "rgb(18, 18, 18)"]
-      : ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.95)"]
-  );
-  
-  const navShadow = useTransform(
-    scrollY,
-    [0, 100],
-    ["0px 0px 0px rgba(0, 0, 0, 0)", "0px 2px 20px rgba(0, 0, 0, 0.1)"]
-  );
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  const location = useLocation();
+  const { scrollY, scrollYProgress } = useScroll();
+
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      
-      const sections = [
-        { selector: '.hero', theme: 'dark' },
-        { selector: '.stats', theme: 'dark' },
-        { selector: '.get-involved', theme: 'light' },
-        { selector: '.brief', theme: 'dark' },
-        { selector: '.testimonials', theme: 'light' }
-      ];
-      
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const section of sections) {
-        const element = document.querySelector(section.selector);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const elementTop = window.scrollY + rect.top;
-          const elementBottom = elementTop + rect.height;
-          
-          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
-            setNavTheme(section.theme);
-            break;
-          }
-        }
-      }
-    };
+    const unsubscribe = scrollY.onChange((latest) => {
+      setIsScrolled(latest > 50);
+    });
+    return () => unsubscribe();
+  }, [scrollY]);
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Magnetic CTA Logic
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 20, stiffness: 300 };
+  const magneticX = useSpring(mouseX, springConfig);
+  const magneticY = useSpring(mouseY, springConfig);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest('.navbar')) {
-        setIsMobileMenuOpen(false);
-      }
-    };
+  const handleMouseMove = (e) => {
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    mouseX.set((clientX - centerX) * 0.4);
+    mouseY.set((clientY - centerY) * 0.4);
+  };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isMobileMenuOpen]);
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setHoveredLink(null);
+  };
 
+  // Lock scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: "About", href: "/about" },
-    { name: "Programs", href: "/programs" },
     { name: "Impact", href: "/impact" },
-    { name: "Contact Us", href: "/contact" }
+    { name: "Programs", href: "/programs" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
-  const handleLinkClick = () => {
-    setIsMobileMenuOpen(false);
-  };
-
   return (
-    <motion.nav
-      className={`navbar ${isScrolled ? "navbar--scrolled" : ""} ${navTheme === 'light' ? "navbar--light" : "navbar--dark"}`}
-      style={{
-        backgroundColor: navBackground,
-        boxShadow: navShadow
-      }}
-    >
-      <div className="navbar__container">
-        {/* Logo - CHANGED to Link */}
-        <Link
-          to="/"
-          className="navbar__logo"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
+    <nav className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}>
+      <motion.div
+        className="navbar__container"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* Logo */}
+        <Link to="/" className="navbar__logo" onClick={() => setIsMobileMenuOpen(false)}>
           <motion.span
-            style={{ color: '#ff5500' }}
             className="navbar__logo-text"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05, color: "var(--pivot-orange)" }}
+            whileTap={{ scale: 0.95 }}
           >
             Women in Power
           </motion.span>
         </Link>
 
-        {/* Desktop Navigation - CHANGED to Link */}
-        <motion.div
-          className="navbar__links"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          {navLinks.map((link, index) => (
-            <motion.div
-              key={link.name}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
-              whileHover={{ y: -2 }}
-            >
+        {/* Desktop Links */}
+        <div className="navbar__links" onMouseLeave={handleMouseLeave}>
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.href;
+            const isHovered = hoveredLink === link.name;
+            return (
               <Link
+                key={link.name}
                 to={link.href}
-                className="navbar__link"
+                className={`navbar__link ${isActive ? "navbar__link--active" : ""}`}
+                onMouseEnter={() => setHoveredLink(link.name)}
               >
-                <span className="navbar__link-text">{link.name}</span>
-                <span className="navbar__link-underline"></span>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
+                <div className="navbar__link-text-wrapper">
+                  <span className={`navbar__link-text ${isHovered ? 'exit' : ''}`}>{link.name}</span>
+                  <span className={`navbar__link-text-hover ${isHovered ? 'enter' : ''}`}>{link.name}</span>
+                </div>
 
-        {/* Desktop CTA Button */}
+                {/* Magnetic Hover Pill */}
+                {isHovered && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    className="navbar__link-pill"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+
+                {/* Active Indicator Dot */}
+                {isActive && (
+                  <motion.div layoutId="active-dot" className="navbar__active-dot" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Desktop CTA */}
         <motion.div
           className="navbar__cta"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ x: magneticX, y: magneticY }}
         >
-          <Button 
-            style={{
-              backgroundColor: '#ff5500',
-              color: '#fff',
-            }} 
-            size="small" 
-            className="navbar__cta-button"
-          >
-            Get Involved
-          </Button>
+          <Link to="/donate">
+            <Button size="small" className="navbar__cta-button">
+              Get Involved
+            </Button>
+          </Link>
         </motion.div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle */}
         <button
           className={`navbar__toggle ${isMobileMenuOpen ? "navbar__toggle--active" : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsMobileMenuOpen(!isMobileMenuOpen);
-          }}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
         >
           <span className="navbar__toggle-line"></span>
           <span className="navbar__toggle-line"></span>
           <span className="navbar__toggle-line"></span>
         </button>
-      </div>
 
-      {/* Mobile Menu - CHANGED to Link */}
+        {/* Scroll Progress Bar (Inside the Pill) */}
+        <motion.div
+          className="navbar__progress-bar"
+          style={{ scaleX, originX: 0 }}
+        />
+      </motion.div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             className="navbar__mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
+            {/* Close Button */}
+            <button
+              className="navbar__mobile-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={32} />
+            </button>
+
+            {/* Background Mesh for Mobile Menu */}
+            <div className="mesh-blob mesh-blob-1" style={{ top: '10%', right: '-10%', opacity: 0.2 }} />
+            <div className="mesh-blob mesh-blob-2" style={{ bottom: '10%', left: '-10%', opacity: 0.2 }} />
+
             <div className="navbar__mobile-links">
-              {navLinks.map((link, index) => (
+              {navLinks.map((link, idx) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ delay: index * 0.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + idx * 0.1 }}
                 >
                   <Link
                     to={link.href}
                     className="navbar__mobile-link"
-                    onClick={handleLinkClick}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <span className="navbar__mobile-link-text">{link.name}</span>
-                    <svg 
-                      className="navbar__mobile-link-icon" 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 16 16" 
-                      fill="none"
+                    <motion.span
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 + idx * 0.1 }}
                     >
-                      <path 
-                        d="M6 12L10 8L6 4" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                      {link.name}
+                    </motion.span>
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                className="navbar__mobile-cta"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ delay: navLinks.length * 0.05 }}
-              >
-                <Button 
-                  style={{
-                    backgroundColor: '#ff5500',
-                    color: '#fff',
-                  }} 
-                  fullWidth 
-                  onClick={handleLinkClick}
-                >
-                  Get Involved
-                </Button>
-              </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="navbar__overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }

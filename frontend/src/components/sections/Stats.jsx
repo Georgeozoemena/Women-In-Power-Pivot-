@@ -37,27 +37,27 @@ function AnimatedCounter({ value }) {
 }
 
 const stats = [
-  { 
-    icon: Globe, 
-    value: "2000+", 
+  {
+    icon: Globe,
+    value: "2000+",
     label: "Women Reached",
     color: "#BE5103"
   },
-  { 
-    icon: Calendar, 
-    value: "10+", 
+  {
+    icon: Calendar,
+    value: "10+",
     label: "Personal & Professional Advancement Rate",
     color: "#BE5103"
   },
-  { 
-    icon: TrendingUp, 
-    value: "85%", 
+  {
+    icon: TrendingUp,
+    value: "85%",
     label: "Skill Acquisition - Certification Achieved",
     color: "#BE5103"
   },
-  { 
-    icon: Users, 
-    value: "200+", 
+  {
+    icon: Users,
+    value: "200+",
     label: "Event Participation",
     color: "#BE5103"
   },
@@ -65,9 +65,9 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="stats">
+    <section className="stats section-padding">
       <Container>
-        <motion.div 
+        <motion.div
           className="stats__header"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,29 +91,29 @@ export default function Stats() {
                 initial={{ opacity: 0, y: 40, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
+                transition={{
                   delay: index * 0.1,
                   duration: 0.5,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   transition: { duration: 0.3 }
                 }}
               >
                 <div className="stats__icon-wrapper">
-                  <Icon 
-                    className="stats__icon" 
-                    size={32} 
+                  <Icon
+                    className="stats__icon"
+                    size={32}
                     strokeWidth={1.5}
                     style={{ color: item.color }}
                   />
                 </div>
-                
+
                 <h3 className="stats__value">
                   <AnimatedCounter value={item.value} />
                 </h3>
-                
+
                 <p className="stats__label">{item.label}</p>
               </motion.div>
             );

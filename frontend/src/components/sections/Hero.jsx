@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "../ui/Button";
 
@@ -37,7 +38,7 @@ export default function Hero() {
   const descText =
     "High scaling the Innate value of women, to thrive both personally and professionally.";
 
-  // ── Auto-slide logic ──────────────────────────────────────────────────────
+  // Auto-slide logic
   const startInterval = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
@@ -48,6 +49,7 @@ export default function Hero() {
   useEffect(() => {
     startInterval();
     return () => clearInterval(intervalRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDotClick = (index) => {
@@ -60,13 +62,13 @@ export default function Hero() {
     startInterval();
   };
 
-  // ── Hero headline animation trigger ─────────────────────────────────────────
+  // ── Hero headline animation trigger 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 400);
     return () => clearTimeout(timer);
   }, []);
 
-  // ── Word-by-word animation variants for hero headlines ──────────────────
+  // ── Word-by-word animation variants for hero headlines 
   const heroTitleVariants = {
     hidden: {},
     visible: {
@@ -88,23 +90,23 @@ export default function Hero() {
   };
 
   const heroWordVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30, 
+    hidden: {
+      opacity: 0,
+      y: 30,
       filter: "blur(8px)",
     },
     visible: {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { 
-        duration: 0.65, 
-        ease: [0.25, 0.46, 0.45, 0.94] 
+      transition: {
+        duration: 0.65,
+        ease: [0.25, 0.46, 0.45, 0.94]
       },
     },
   };
 
-  // ── Word-reveal animation variants for carousel ──────────────────────────
+  // ── Word-reveal animation variants for carousel
   const containerVariants = {
     hidden: {},
     visible: {
@@ -170,7 +172,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Animated Hero Title */}
-          <motion.h1 
+          <motion.h1
             className="hero__title"
             variants={heroTitleVariants}
             initial="hidden"
@@ -195,7 +197,7 @@ export default function Hero() {
                 );
               })}
             </span>
-            
+
             {/* Line 2: We stand to uncover Strength and transform */}
             <span style={{ display: "block" }}>
               {titleLine2.split(" ").map((word, index) => {
@@ -218,7 +220,7 @@ export default function Hero() {
           </motion.h1>
 
           {/* Animated Hero Description */}
-          <motion.p 
+          <motion.p
             className="hero__description"
             variants={heroDescVariants}
             initial="hidden"
@@ -281,19 +283,30 @@ export default function Hero() {
               return (
                 <motion.div
                   key={index}
-                  className={`hero-carousel__slide ${
-                    isActive ? "hero-carousel__slide--active" : ""
-                  }`}
+                  className={`hero-carousel__slide ${isActive ? "hero-carousel__slide--active" : ""
+                    }`}
                   onClick={() => handleSlideClick(index)}
                   initial={false}
                   animate={{
                     x: `${offset}%`,
+                    y: isActive ? [0, -10, 0] : 0,
                     scale: isActive ? 1 : 0.85,
                     opacity: isActive ? 1 : 0.5,
                     filter: isActive ? "blur(0px)" : "blur(3px)",
                     zIndex: isActive ? 10 : slides.length - Math.abs(index - activeSlide),
                   }}
-                  transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+                  transition={isActive ? {
+                    y: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    },
+                    duration: 0.7,
+                    ease: [0.32, 0.72, 0, 1]
+                  } : {
+                    duration: 0.7,
+                    ease: [0.32, 0.72, 0, 1]
+                  }}
                   whileHover={!isActive ? { scale: 0.9, opacity: 0.7 } : {}}
                 >
                   <div className="hero-carousel__image-wrapper">
@@ -350,9 +363,8 @@ export default function Hero() {
               <motion.button
                 key={index}
                 onClick={() => handleDotClick(index)}
-                className={`hero-carousel__dot ${
-                  index === activeSlide ? "hero-carousel__dot--active" : ""
-                }`}
+                className={`hero-carousel__dot ${index === activeSlide ? "hero-carousel__dot--active" : ""
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
                 whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.9 }}

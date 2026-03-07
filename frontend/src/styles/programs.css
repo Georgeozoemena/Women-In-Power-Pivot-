@@ -1,283 +1,171 @@
-/* PROGRAMS PAGE - NIXTIO INSPIRED DESIGN */
-.programs {
-  position: relative;
-  background: white;
-  overflow: hidden;
+/* PROGRAMS PAGE - HELLION DARK THEME */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@100..900&display=swap');
+
+:root {
+  --serif-font: "Playfair Display", serif;
+  --sans-font: var(--font-main);
+  --pivot-orange: #ff5c00;
+  --pivot-dark-bg: #0a0b10;
+  --pivot-card-bg: rgba(15, 17, 26, 0.6);
+  --pivot-white: #ffffff;
+  --pivot-muted: rgba(255, 255, 255, 0.5);
+  --pivot-accent-glow: rgba(255, 92, 0, 0.15);
 }
 
-/* Hero Section */
-.programs__hero {
+.programs-page {
+  background: var(--pivot-dark-bg);
+  color: var(--pivot-white);
+  font-family: var(--sans-font);
+  overflow-x: hidden;
   position: relative;
-  min-height: 65vh;
+  padding-bottom: 200px;
+}
+
+/* Programs Hero */
+.programs-hero {
+  padding: clamp(140px, 20vh, 280px) 0 80px;
+  text-align: left;
+}
+
+.programs-hero__title {
+  font-size: clamp(56px, 10vw, 140px);
+  font-weight: 950;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.programs-hero__subtitle {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--pivot-muted);
+  max-width: 600px;
+}
+
+/* Programs Bento Grid */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 80px;
+}
+
+.program-card {
+  background: var(--pivot-card-bg);
+  backdrop-filter: blur(20px);
+  padding: 60px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
+  gap: 32px;
+}
+
+.program-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 92, 0, 0.3);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+}
+
+.program-card__icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 92, 0, 0.1);
+  border-radius: 16px;
+  display: flex;
   align-items: center;
-  color: #fff;
   justify-content: center;
-  padding: 140px 2rem 100px;
-  background: var(--pivot-light);
-  background: url(../../public/Partner.jpg);
-  background-size: cover;
-  
-  @media (max-width: 768px) {
-    padding: 120px 1.5rem 80px;
-    min-height: 55vh;
-  }
+  color: var(--pivot-orange);
 }
 
-.programs__hero-content {
-  text-align: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  z-index: 2;
+.program-card__duration {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--pivot-orange);
+  font-weight: 800;
 }
 
-.programs__title {
-  font-size: clamp(64px, 10vw, 120px);
-  font-weight: 600;
-  line-height: 0.95;
+.program-card__title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  /* color: var(--pivot-black); */
-  margin-bottom: 32px;
-  
-  @media (max-width: 768px) {
-    margin-bottom: 24px;
-  }
 }
 
-.programs__subtitle {
-  font-size: clamp(18px, 2.5vw, 24px);
-  line-height: 1.5;
+.program-card__desc {
+  font-size: 18px;
+  line-height: 1.6;
   color: var(--pivot-muted);
-  max-width: 700px;
-  margin: 0 auto;
-  font-weight: 400;
 }
 
-/* Container */
-.programs__container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 100px 2rem 120px;
-  
-  @media (max-width: 768px) {
-    padding: 80px 1.5rem;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 60px 1rem;
-  }
+.program-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
 }
 
-/* Programs Grid */
-.programs__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 40px;
-  margin-bottom: 120px;
-  
-  @media (max-width: 1100px) {
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--pivot-white);
+  font-weight: 500;
+}
+
+.feature-bullet {
+  color: var(--pivot-orange);
+  font-weight: 900;
+}
+
+/* CTA - Simple & High Impact */
+.programs-cta {
+  margin-top: 120px;
+  text-align: center;
+}
+
+.programs-cta__title {
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 950;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.btn-programs-main {
+  background: var(--pivot-white);
+  color: var(--pivot-black);
+  padding: 24px 64px;
+  border-radius: 100px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 48px;
+  transition: all 0.3s ease;
+}
+
+.btn-programs-main:hover {
+  background: var(--pivot-orange);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .programs-grid {
     grid-template-columns: 1fr;
   }
-  
-  @media (max-width: 768px) {
-    gap: 32px;
-    margin-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .program-card {
+    padding: 40px 24px;
   }
-}
 
-.programs__card {
-  position: relative;
-  padding: 48px;
-  background: var(--pivot-light);
-  border-radius: 16px;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  
-  @media (max-width: 768px) {
-    padding: 40px 32px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 32px 24px;
-  }
-}
-
-.programs__card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-.programs__card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.programs__card-icon {
-  color: var(--pivot-black);
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.programs__card:hover .programs__card-icon {
-  opacity: 1;
-}
-
-.programs__card-duration {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--pivot-muted);
-  padding: 6px 16px;
-  background: white;
-  border-radius: 20px;
-}
-
-.programs__card:hover .programs__card-duration {
-  background: var(--pivot-light);
-}
-
-.programs__card-title {
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--pivot-black);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.programs__card-description {
-  font-size: clamp(15px, 1.5vw, 17px);
-  line-height: 1.7;
-  color: var(--pivot-muted);
-  margin: 0;
-}
-
-.programs__card-features {
-  margin-top: 8px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.programs__card-features-title {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--pivot-black);
-  margin-bottom: 16px;
-}
-
-.programs__card-features-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.programs__card-feature {
-  font-size: 15px;
-  color: var(--pivot-muted);
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  line-height: 1.6;
-}
-
-.programs__card-feature-bullet {
-  color: var(--pivot-black);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.programs__card-button {
-  align-self: flex-start;
-  margin-top: 8px;
-}
-
-/* CTA Section */
-.programs__cta {
-  text-align: center;
-  padding: 80px 40px;
-  background: var(--pivot-black);
-  border-radius: 24px;
-  color: white;
-  
-  @media (max-width: 768px) {
-    padding: 60px 32px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 48px 24px;
-  }
-}
-
-.programs__cta-title {
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 24px;
-  color: white;
-}
-
-.programs__cta-text {
-  font-size: clamp(16px, 1.8vw, 20px);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-
-.programs__cta-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.programs__cta-buttons .btn--primary {
-  background: white;
-  color: var(--pivot-black);
-}
-
-.programs__cta-buttons .btn--primary:hover {
-  background: var(--pivot-light);
-}
-
-.programs__cta-buttons .btn--secondary {
-  border-color: white;
-  color: white;
-}
-
-.programs__cta-buttons .btn--secondary:hover {
-  background: white;
-  color: var(--pivot-black);
-}
-
-/* Smooth Scroll Behavior */
-.programs * {
-  will-change: transform, opacity;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .programs *,
-  .programs__card {
-    animation: none !important;
-    transition: none !important;
+  .programs-hero__title {
+    font-size: 64px;
   }
 }

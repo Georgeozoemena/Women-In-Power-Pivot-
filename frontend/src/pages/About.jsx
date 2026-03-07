@@ -10,198 +10,136 @@ export default function About() {
     offset: ["start start", "end start"]
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const stats = [
-  { value: "25+", label: "States Reached" },
-  { value: "10+", label: "Annual Conferences" },
-  { value: "85%", label: "Career Advancement Rate" },
-  { value: "200+", label: "Partner Organizations" },
+    { value: "25+", label: "States Reached" },
+    { value: "10+", label: "Annual Conferences" },
+    { value: "85%", label: "Career Advancement Rate" },
+    { value: "200+", label: "Partner Organizations" },
+  ];
+
+  const values = [
+    {
+      title: "Leadership",
+      description: "Leadership is a privilege and a responsibility. We lead to serve, uplift, and create lasting change."
+    },
+    {
+      title: "Excellence",
+      description: "We strive for excellence in every initiative, ensuring our impact is measurable and meaningful."
+    },
+    {
+      title: "Growth",
+      description: "We believe in continuous growth, fostering environments where every woman can reach her peak potential."
+    },
+    {
+      title: "Empowerment",
+      description: "We unlock pathways for women to rise into positions of global influence and institutional change."
+    },
+    {
+      title: "Integrity",
+      description: "We operate with transparency and honesty, building trust through our shared actions."
+    },
+    {
+      title: "Community",
+      description: "We believe in the power of partnership, where diverse voices strengthen our collective impact."
+    }
   ];
 
   return (
-    <>
+    <div className="about-page" ref={containerRef}>
       <Helmet>
         <title>About Us - Women in Power</title>
-        <meta name="description" content="Learn about our mission to empower women leaders and create lasting change in communities." />
-        <meta name="keywords" content="women empowerment, women leaders, non-profit, gender equality" />
-        
-        {/* Open Graph for social sharing */}
-        <meta property="og:title" content="About Us - Women in Power" />
-        <meta property="og:description" content="Learn about our mission to empower women leaders." />
-        <meta property="og:image" content="https://yoursite.com/og-about.jpg" />
-        <meta property="og:url" content="https://yoursite.com/about" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Us - Women in Power" />
-        <meta name="twitter:description" content="Learn about our mission to empower women leaders." />
-        
-        <link rel="canonical" href="https://yoursite.com/about" />
+        <meta name="description" content="Learn about our mission to empower women leaders and create lasting change." />
       </Helmet>
-      
-      <section className="about" ref={containerRef}>
-        <div className="about__hero">
-          <motion.div 
-            className="about__hero-content"
-            style={{ y: textY }}
-          >
-            <motion.h1
-              className="about__title"
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Who We Are
-            </motion.h1>
-            <motion.p
-              className="about__subtitle"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              A global initiative dedicated to unlocking the leadership potential of young women
-            </motion.p>
-          </motion.div>
 
-          <motion.div 
-            className="about__image-wrapper"
-            style={{ y: imageY, scale: imageScale }}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            <img 
-              src="./Photo12.jpg" 
-              alt="Women in Power - Empowering Women Leaders"
-              className="about__image"
-            />
-          </motion.div>
-        </div>
-
-        <div className="about__container">
+      {/* Cinematic Hero */}
+      <section className="about-hero">
+        <motion.div
+          className="about-hero__bg"
+          style={{ scale: heroScale, opacity: heroOpacity }}
+        />
+        <div className="container">
           <motion.div
-            className="about__content"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            className="about-hero__content"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.p 
-              className="about__lead"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              Women in Power is a global initiative dedicated to unlocking the leadership potential of young women. Through mentorship, skill-building workshops, and a supportive community, we create pathways for women to rise into positions of influence across technology, business, policy, and social innovation.
-            </motion.p>
-
-            <motion.p 
-              className="about__text"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              We believe that when women lead, communities thrive, innovation flourishes, and sustainable change becomes possible.
-            </motion.p>
-
-            <motion.p 
-              className="about__text"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              Our work is grounded in integrity, collaboration, and the belief that leadership is a responsibility to serve.
-            </motion.p>
-          </motion.div>
-
-          {/* Stats Grid */}
-          <div className="about__stats">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="about__stat"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-              >
-                <span className="about__stat-number">{stat.value}</span>
-                <span className="about__stat-label">{stat.label}</span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Values Section */}
-          <motion.div 
-            className="about__values"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h2
-              className="about__values-title"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6 }}
-            >
-              Our Values
-            </motion.h2>
-
-            <div className="about__values-grid">
-              {[
-                {
-                  title: "Leadership",
-                  description: "We operate with transparency and honesty, building trust through our actions and commitments."
-                },
-                {
-                  title: "Excellence",
-                  description: "We operate with transparency and honesty, building trust through our actions and commitments."
-                },
-                {
-                  title: "Growth",
-                  description: "We believe in the power of partnership, creating spaces where diverse voices strengthen our collective impact."
-                },
-                {
-                  title: "Empowerment",
-                  description: "Leadership is a privilege and a responsibility. We lead to serve, uplift, and create lasting change."
-                },
-                {
-                  title: "Community",
-                  description: "Leadership is a privilege and a responsibility. We lead to serve, uplift, and create lasting change."
-                }
-              ].map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  className="about__value"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.15,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                >
-                  <h3 className="about__value-title">{value.title}</h3>
-                  <p className="about__value-description">{value.description}</p>
-                </motion.div>
-              ))}
-            </div>
+            <span className="section-label">Our Identity</span>
+            <h1 className="about-hero__title">Unlocking <br />Influence.</h1>
+            <p className="about-hero__subtitle">
+              A global initiative dedicated to unlocking the leadership potential of young women across Africa.
+            </p>
           </motion.div>
         </div>
       </section>
-    </>
+
+      {/* Manifesto Section */}
+      <section className="about-manifesto section-padding">
+        <div className="container">
+          <header className="manifesto-header">
+            <span className="section-label">Manifesto</span>
+          </header>
+          <motion.h2
+            className="manifesto-text"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            We believe that when <span className="highlight">women lead</span>, communities thrive,
+            innovation flourishes, and <span className="highlight">sustainable change</span> becomes possible.
+            Our journey is a paradigm shift in the collective African landscape.
+          </motion.h2>
+        </div>
+      </section>
+
+      {/* Values Section - Bento Grid */}
+      <section className="about-values section-padding">
+        <div className="container">
+          <header className="manifesto-header">
+            <span className="section-label">Foundational Values</span>
+          </header>
+          <div className="values-grid">
+            {values.map((v, idx) => (
+              <motion.div
+                key={v.title}
+                className="value-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.6 }}
+              >
+                <h3 className="value-title">{v.title}</h3>
+                <p className="value-desc">{v.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="about-stats section-padding">
+        <div className="container">
+          <div className="stats-grid">
+            {stats.map((stat, idx) => (
+              <motion.div
+                key={stat.label}
+                className="stat-item"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+              >
+                <span className="stat-value">{stat.value}</span>
+                <span className="stat-label">{stat.label}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

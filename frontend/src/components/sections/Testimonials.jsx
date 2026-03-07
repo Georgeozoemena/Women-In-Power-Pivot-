@@ -13,7 +13,7 @@ export default function Testimonials() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -88,7 +88,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="testimonials-video">
+    <section className="testimonials-video section-padding">
       <Container>
         {/* Header */}
         <motion.div
@@ -113,20 +113,19 @@ export default function Testimonials() {
         </motion.div>
 
         {/* Stories Carousel */}
-        <div 
+        <div
           className="testimonials-video__carousel"
           onMouseLeave={handleMouseLeave}
         >
           <div className="testimonials-video__scroll" ref={scrollRef}>
             {stories.map((story, index) => {
               const isExpanded = expandedIndex === index;
-              
+
               return (
                 <motion.div
                   key={index}
-                  className={`story-pill ${
-                    isExpanded ? "story-pill--expanded" : "story-pill--collapsed"
-                  }`}
+                  className={`story-pill ${isExpanded ? "story-pill--expanded" : "story-pill--collapsed"
+                    }`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -145,17 +144,17 @@ export default function Testimonials() {
                   <div className="story-pill__image">
                     <div className="story-pill__gradient"></div>
                   </div>
-                  
+
                   {/* Dark Overlay */}
-                  <div 
+                  <div
                     className="story-pill__overlay"
                     style={{
                       opacity: isExpanded ? 1 : 0,
                     }}
                   ></div>
-                  
+
                   {/* Story Content */}
-                  <motion.div 
+                  <motion.div
                     className="story-pill__content"
                     animate={{
                       opacity: isExpanded ? 1 : 0,
@@ -198,9 +197,8 @@ export default function Testimonials() {
             {stories.map((_, index) => (
               <button
                 key={index}
-                className={`testimonials-video__dot ${
-                  expandedIndex === index ? "testimonials-video__dot--active" : ""
-                }`}
+                className={`testimonials-video__dot ${expandedIndex === index ? "testimonials-video__dot--active" : ""
+                  }`}
                 onClick={() => setExpandedIndex(index)}
                 aria-label={`View story ${index + 1}`}
               />

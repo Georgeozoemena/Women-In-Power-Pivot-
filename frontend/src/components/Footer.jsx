@@ -58,7 +58,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            STORIES THAT SPEAK. ACTIONS THAT COUNT.
+            High scaling the innate value of women.
           </motion.h2>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="footer__socials">
               <motion.a
-                href="https://instagram.com"
+                href="https://instagram.com/womeninpowerofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social"
