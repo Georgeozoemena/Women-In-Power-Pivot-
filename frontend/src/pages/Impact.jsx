@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion"; // eslint-disable-line no-unused-vars
 import { useRef } from "react";
 import "../styles/impact.css";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import { ArrowRight, Heart, Target, Zap } from "lucide-react";
 
 export default function Impact() {

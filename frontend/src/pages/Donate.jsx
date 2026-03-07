@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 import {
     ShieldCheck, Users, BookOpen, Globe, Cpu,
     CreditCard, Banknote, X, ChevronDown, ChevronUp,
