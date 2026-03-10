@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import {
     ShieldCheck, Users, BookOpen, Globe, Cpu,
     CreditCard, Banknote, X, ChevronDown, ChevronUp,
@@ -12,7 +12,7 @@ import "../styles/donate.css";
    CONFIG — fill these in once your Paystack pages are live
    ================================================================ */
 const PAYSTACK_INDIVIDUAL_URL = "https://paystack.shop/pay/YOUR_INDIVIDUAL_SLUG";
-const PAYSTACK_ORG_URL        = "https://paystack.shop/pay/YOUR_ORG_SLUG";
+const PAYSTACK_ORG_URL = "https://paystack.shop/pay/YOUR_ORG_SLUG";
 
 // UTM helper — appended so you can track which CTA drove each conversion
 const withUTM = (base, source, content) =>
@@ -24,9 +24,9 @@ const withUTM = (base, source, content) =>
 
 // Impact labels shown dynamically as donor selects an amount
 const IMPACT_AMOUNTS = [
-    { amount: 10,  label: "Covers one week of digital resources for a woman leader" },
-    { amount: 25,  label: "Funds a full mentorship session between mentor and mentee" },
-    { amount: 50,  label: "Sponsors one woman's entry into our Leadership Academy" },
+    { amount: 10, label: "Covers one week of digital resources for a woman leader" },
+    { amount: 25, label: "Funds a full mentorship session between mentor and mentee" },
+    { amount: 50, label: "Sponsors one woman's entry into our Leadership Academy" },
     { amount: 100, label: "Provides a month of coaching, tools, and community access" },
     { amount: 250, label: "Sends two women through our 8-week Leadership Bootcamp" },
     { amount: 500, label: "Fully funds one scholarship for our annual Summit programme" },
@@ -76,20 +76,20 @@ const WIRE_DETAILS = [
     {
         currency: "USD",
         rows: [
-            { label: "Bank Name",      value: "YOUR BANK NAME" },
-            { label: "Account Name",   value: "YOUR ORGANISATION NAME" },
+            { label: "Bank Name", value: "YOUR BANK NAME" },
+            { label: "Account Name", value: "YOUR ORGANISATION NAME" },
             { label: "Account Number", value: "0000000000" },
-            { label: "SWIFT / BIC",    value: "YOURSWIFT" },
+            { label: "SWIFT / BIC", value: "YOURSWIFT" },
         ],
     },
     {
         currency: "EUR",
         rows: [
-            { label: "Bank Name",      value: "YOUR BANK NAME" },
-            { label: "Account Name",   value: "YOUR ORGANISATION NAME" },
+            { label: "Bank Name", value: "YOUR BANK NAME" },
+            { label: "Account Name", value: "YOUR ORGANISATION NAME" },
             { label: "Account Number", value: "0000000000" },
-            { label: "SWIFT / BIC",    value: "YOURSWIFT" },
-            { label: "IBAN",           value: "YOUR IBAN" },
+            { label: "SWIFT / BIC", value: "YOURSWIFT" },
+            { label: "IBAN", value: "YOUR IBAN" },
         ],
     },
 ];
@@ -114,16 +114,16 @@ const TESTIMONIALS = [
 
 const STATS = [
     { value: "12,000+", label: "Women trained across Africa" },
-    { value: "3,400+",  label: "Mentorship connections made" },
-    { value: "89%",     label: "Landed leadership roles within a year" },
-    { value: "40+",     label: "Countries represented" },
+    { value: "3,400+", label: "Mentorship connections made" },
+    { value: "89%", label: "Landed leadership roles within a year" },
+    { value: "40+", label: "Countries represented" },
 ];
 
 const ALLOCATION = [
     { percent: "45%", label: "Mentorship Networks", icon: Users },
-    { percent: "30%", label: "Leadership Academy",  icon: BookOpen },
-    { percent: "15%", label: "Policy Advocacy",     icon: Globe },
-    { percent: "10%", label: "Infrastructure",      icon: Cpu },
+    { percent: "30%", label: "Leadership Academy", icon: BookOpen },
+    { percent: "15%", label: "Policy Advocacy", icon: Globe },
+    { percent: "10%", label: "Infrastructure", icon: Cpu },
 ];
 
 const FAQS = [
@@ -187,10 +187,10 @@ function FaqItem({ q, a, isOpen, onToggle }) {
    DONATION OPTIONS MODAL
    ================================================================ */
 function DonationOptionsModal({ isOpen, onClose, donorType, selectedAmount, utmSource }) {
-    const [wireOpen, setWireOpen]     = useState(false);
+    const [wireOpen, setWireOpen] = useState(false);
     const [activeTier, setActiveTier] = useState(null);
 
-    const baseUrl     = donorType === "individual" ? PAYSTACK_INDIVIDUAL_URL : PAYSTACK_ORG_URL;
+    const baseUrl = donorType === "individual" ? PAYSTACK_INDIVIDUAL_URL : PAYSTACK_ORG_URL;
     const paystackUrl = withUTM(baseUrl, "donate_page", utmSource);
 
     const handlePaystack = () => {
@@ -215,8 +215,8 @@ function DonationOptionsModal({ isOpen, onClose, donorType, selectedAmount, utmS
                     <motion.div
                         className="dmodal"
                         initial={{ opacity: 0, scale: 0.93, y: 24 }}
-                        animate={{ opacity: 1, scale: 1,    y: 0  }}
-                        exit={{    opacity: 0, scale: 0.93, y: 24 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.93, y: 24 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
                         {/* Header */}
@@ -260,7 +260,7 @@ function DonationOptionsModal({ isOpen, onClose, donorType, selectedAmount, utmS
                                             className="dmodal__wire-details"
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: "auto", opacity: 1 }}
-                                            exit={{    height: 0, opacity: 0 }}
+                                            exit={{ height: 0, opacity: 0 }}
                                             transition={{ duration: 0.35, ease: "easeInOut" }}
                                             style={{ overflow: "hidden" }}
                                         >
@@ -355,11 +355,11 @@ function DonationOptionsModal({ isOpen, onClose, donorType, selectedAmount, utmS
    MAIN PAGE
    ================================================================ */
 export default function Donate() {
-    const [modalOpen, setModalOpen]       = useState(false);
-    const [donorType, setDonorType]       = useState("individual");
-    const [utmSource, setUtmSource]       = useState("hero");
+    const [modalOpen, setModalOpen] = useState(false);
+    const [donorType, setDonorType] = useState("individual");
+    const [utmSource, setUtmSource] = useState("hero");
     const [selectedAmount, setSelectedAmount] = useState(null);
-    const [openFaq, setOpenFaq]           = useState(null);
+    const [openFaq, setOpenFaq] = useState(null);
 
     const openModal = (type, source = "hero") => {
         setDonorType(type);
@@ -380,7 +380,7 @@ export default function Donate() {
                 <meta name="twitter:card" content="summary_large_image" />
             </Helmet>
 
-            <div className="mesh-blob mesh-blob-1" style={{ top: "0",    right: "-10%" }} />
+            <div className="mesh-blob mesh-blob-1" style={{ top: "0", right: "-10%" }} />
             <div className="mesh-blob mesh-blob-2" style={{ bottom: "10%", left: "-10%" }} />
 
             {/* ══════════════════════════════════════════════════════
