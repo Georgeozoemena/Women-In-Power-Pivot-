@@ -8,6 +8,7 @@ import Programs from "./pages/Programs";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import Preloader from "./components/ui/Preloader";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,7 @@ export default function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Preloader isLoading={isLoading} />
       <DefaultLayout>
         <Routes>
