@@ -81,7 +81,7 @@ export default function Contact() {
         <header className="contact-hero">
           <span className="section-label">CONTACT US</span>
           <motion.h1
-            className="contact-hero__title"
+            className="contact-hero__title contact-head"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

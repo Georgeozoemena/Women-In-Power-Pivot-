@@ -18,13 +18,17 @@
 }
 
 .contact-hero__title {
-  /* font-size: var(--hero-title-size); */
-  font-size: 10rem;
+  font-size: var(--hero-title-size);
+  /* font-size: 10rem; */
   font-weight: 950;
   line-height: 0.9;
   letter-spacing: -0.05em;
   text-transform: uppercase;
   margin-bottom: 24px;
+}
+
+.contact-head {
+  font-size: 10rem;
 }
 
 /* Redefined Layout - Clean Centered Form */
