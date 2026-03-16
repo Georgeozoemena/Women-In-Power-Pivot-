@@ -15,10 +15,9 @@ export default function Footer() {
           <div className="footer__grid">
             {/* Logo */}
             <div className="footer__brand">
-              <div className="footer__logo">
-                <div className="footer__logo-icon"></div>
-                <span className="footer__logo-text">WOMEN IN POWER</span>
-              </div>
+              <a href="/" className="footer__logo">
+                <img src="/WIP White.png" alt="Women in Power Logo" className="footer__logo-img" />
+              </a>
             </div>
 
             {/* Column 1 */}

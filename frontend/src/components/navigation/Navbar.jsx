@@ -70,13 +70,13 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link to="/" className="navbar__logo" onClick={() => setIsMobileMenuOpen(false)}>
-          <motion.span
-            className="navbar__logo-text"
-            whileHover={{ scale: 1.05, color: "var(--pivot-orange)" }}
+          <motion.img
+            src="/WIP White.png"
+            alt="Women in Power Logo"
+            className="navbar__logo-img"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          >
-            Women in Power
-          </motion.span>
+          />
         </Link>
 
         {/* Desktop Links */}

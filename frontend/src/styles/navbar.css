@@ -90,13 +90,11 @@
   padding: 0;
 }
 
-.navbar__logo-text {
-  font-family: var(--sans-font);
-  font-weight: 850;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--pivot-white);
+.navbar__logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 /* Links */
