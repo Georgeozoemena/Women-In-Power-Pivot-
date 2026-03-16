@@ -31,7 +31,6 @@
 
 .navbar__container {
   width: auto;
-  min-width: 600px;
   background: var(--nav-bg);
   backdrop-filter: blur(var(--nav-blur));
   -webkit-backdrop-filter: blur(var(--nav-blur));
@@ -214,9 +213,11 @@
 /* Mobile Adjustments */
 @media (max-width: 968px) {
   .navbar__container {
-    min-width: 90%;
-    gap: 180px;
-    padding: 6px 6px 6px 20px;
+    width: 90%;
+    min-width: auto;
+    justify-content: space-between;
+    gap: 0;
+    padding: 12px 20px;
   }
 
   .navbar__links,
