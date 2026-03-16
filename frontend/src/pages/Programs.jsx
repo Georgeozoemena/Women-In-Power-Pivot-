@@ -78,6 +78,27 @@ export default function Programs() {
           })}
         </div>
 
+        {/* Target Audience Section */}
+        <section className="programs-audience section-padding">
+          <header className="manifesto-header" style={{ marginBottom: "40px", textAlign: "center" }}>
+            <span className="section-label" style={{ display: "inline-block" }}>Target Audience</span>
+          </header>
+          <div className="programs-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+            {[
+              "Young women aged 18–40 years",
+              "Aspiring leaders and entrepreneurs",
+              "Women in business, tech, education, and public service",
+              "Tertiary education level women"
+            ].map((audience, idx) => (
+              <div key={idx} className="program-card" style={{ padding: "30px" }}>
+                <p className="program-card__desc" style={{ fontSize: "1.1rem", fontWeight: "600", margin: 0 }}>
+                  {audience}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="programs-cta section-padding">
           <div className="cta-box">

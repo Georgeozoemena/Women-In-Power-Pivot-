@@ -40,10 +40,11 @@ export default function Impact() {
   ];
 
   const teamMembers = [
-    { name: "George Ozoemena", role: "Executive Director", color: "#222" },
-    { name: "Sarah Williams", role: "Program Manager", color: "#333" },
-    { name: "Adaobi Naza", role: "Digital Lead", color: "#444" },
-    { name: "Olawale John", role: "Strategic Lead", color: "#222" }
+    { name: "Project Manager", role: "Leadership", color: "#222" },
+    { name: "Mentorship Coordinator", role: "Programs", color: "#333" },
+    { name: "Partnership & Sponsorship Lead", role: "Strategic Lead", color: "#444" },
+    { name: "Admin/Operations Support", role: "Operations", color: "#555" },
+    { name: "Volunteer Network", role: "Community", color: "#666" }
   ];
 
   return (
@@ -122,7 +123,7 @@ export default function Impact() {
       <section className="impact-team section-padding">
         <div className="container">
           <header className="manifesto-header">
-            <span className="section-label">The High Command</span>
+            <span className="section-label">Proposed Team</span>
           </header>
           <div className="team-grid">
             {teamMembers.map((member, idx) => (
@@ -166,6 +167,48 @@ export default function Impact() {
                 <span className="stat-label">{stat.label}</span>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Objectives Section */}
+      <section className="impact-objectives section-padding">
+        <div className="container">
+          <header className="manifesto-header">
+            <span className="section-label">Our Objectives</span>
+          </header>
+          <div className="pillars-grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "40px" }}>
+            <motion.div
+              className="pillar-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="pillar-title" style={{ fontSize: "1.5rem", marginBottom: "20px" }}>Short-term (12–18 months)</h3>
+              <ul className="pillar-desc" style={{ listStyle: "disc", paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                <li>Launch flagship event</li>
+                <li>Build community of 200–500 women</li>
+                <li>Establish mentorship structures</li>
+                <li>Deliver 4–6 trainings/workshops</li>
+              </ul>
+            </motion.div>
+            
+            <motion.div
+              className="pillar-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              <h3 className="pillar-title" style={{ fontSize: "1.5rem", marginBottom: "20px" }}>Long-term (2–5 years)</h3>
+              <ul className="pillar-desc" style={{ listStyle: "disc", paddingLeft: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                <li>Become the leading women development platform in Africa</li>
+                <li>Support 20,000+ women through programmes</li>
+                <li>Expand into state/campus chapters</li>
+                <li>Secure major partnerships and sponsorships</li>
+              </ul>
+            </motion.div>
           </div>
         </div>
       </section>

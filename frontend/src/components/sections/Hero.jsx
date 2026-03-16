@@ -15,28 +15,28 @@ export default function Hero() {
   const slides = [
     {
       image: "./Photo3.jpg",
-      title: "Provisional Platform for the adequate mentorship",
+      title: "Raising Women Who Thrive and Lead",
       description:
-        "Connecting women to experienced mentors in business, tech, entrepreneurship, and public service.",
+        "Our vision is to empower a generation of women to transform every sphere of society.",
     },
     {
       image: "./Group.jpg",
-      title: "Training and Workshops, in upskilling engagements",
+      title: "Strengthening Leadership Capacity",
       description:
-        "We provide series of transformative programs, where women acquire life-changing information and experiencing.",
+        "We design and develop programs that sharpen skills, connect to mentors, and support personal growth.",
     },
     {
       image: "./Photo8.jpg",
-      title: "Creating forum for the intentional community support and structure",
+      title: "Equipping the Next Generation",
       description:
-        "Women helping women in a system of support, creating the needful healthy environment that both support and facilitate growth.",
+        "Supporting young women, aspiring leaders, and entrepreneurs across business, tech, education, and public service.",
     },
   ];
 
-  const titleLine1 = "Women and Society";
-  const titleLine2 = "We stand to uncover Strength and transform";
+  const titleLine1 = "Empowering Women";
+  const titleLine2 = "To Thrive, Lead and Transform Society";
   const descText =
-    "High scaling the Innate value of women, to thrive both personally and professionally.";
+    "A transformative initiative designed to equip you with leadership, skills, mentorship, and capacity-building opportunities to positively impact the world.";
 
   // Auto-slide logic
   const startInterval = () => {
@@ -198,10 +198,10 @@ export default function Hero() {
               })}
             </span>
 
-            {/* Line 2: We stand to uncover Strength and transform */}
+            {/* Line 2: To Thrive, Lead and Transform Society */}
             <span style={{ display: "block" }}>
               {titleLine2.split(" ").map((word, index) => {
-                const isHook = word === "Strength";
+                const isHook = word === "Thrive," || word === "Lead" || word === "Transform";
                 return (
                   <motion.span
                     key={`line2-${index}`}
